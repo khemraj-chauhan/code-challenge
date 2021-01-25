@@ -1,5 +1,7 @@
 <div class="container py-5">
-  <h3>New Company</h3>
-  <%= link_to "< Companies", companies_path %>
+  <h3 class="mb-3 border-bottom pb-3">New Company</h3>
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <%= link_to 'Back', companies_path, class: 'btn btn-primary btn-sm' %>
+  </div>
   <%= render "form" %>
 </div>
