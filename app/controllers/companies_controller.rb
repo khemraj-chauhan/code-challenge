@@ -1,4 +1,6 @@
 class CompaniesController < ApplicationController
+  include CompaniesHelper
+
   before_action :set_company, except: [:index, :create, :new]
 
   def index
@@ -32,23 +34,30 @@ class CompaniesController < ApplicationController
     end
   end  
 
+  def destroy
+    @company.destroy!
+
+    redirect_to companies_path, flash: { success: delete_message('success') }
+  rescue StandardError => e
+    Rails.logger.error("Company deleting error: #{e.backtrace}")
+    redirect_to companies_path, flash: { error: e.message }
+  end
+
   private
 
   def company_params
     params.require(:company).permit(
       :name,
-      :legal_name,
       :description,
       :zip_code,
       :phone,
       :email,
-      :owner_id,
+      :color,
       services: []
     )
   end
 
   def set_company
-    @company = Company.find(params[:id])
+    @company = Company.find(params[:id]).decorate
   end
-  
 end
