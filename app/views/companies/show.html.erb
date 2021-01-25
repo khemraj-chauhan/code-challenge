@@ -1,18 +1,14 @@
 <div class="container py-5">
-  <h3>Company</h3>
-  <div class="row">
-    <div class="col">
-      <%= link_to "< Companies", companies_path %>
-    </div>
-    <div class="col text-right">
-      <%= link_to "Edit", edit_company_path %>
-    </div>
+  <h3 class="mb-3 border-bottom pb-3">Company</h3>
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <%= link_to 'Back', companies_path, class: 'btn btn-primary btn-sm' %>
+    <%= link_to 'Edit', edit_company_path, class: 'btn btn-primary btn-sm', style: 'margin-left: 950px'%>
+    <%= link_to 'Delete', company_path(@company), data: { confirm: delete_message('confirmation', @company.name)}, method: :delete, class: 'btn btn-danger btn-sm' %>
   </div>
-  <div class="bg-success">
+  <div class="bg-success" style="background-color: <%= @company.color%> !important;">
     <div class="container p-5 text-white">
       <h1><%= @company.name %></h1>
-      <h3><mark>City, State</mark></h3>
-      <pre><mark>☝️ This is what needs to be udpated. Examples: Atlanta, GA or Nashvile, TN</mark></pre>
+      <h3><mark><%= @company.city_and_state %></mark></h3>
     </div>
   </div>
 
@@ -36,7 +32,7 @@
     </div>
   </div>
 
-  <div class="bg-success text-white text-center py-3">
-    <p class="lead"><%= @company.phone %> — <%= @company.email %></p>
+  <div class="bg-success text-white text-center py-3" style="background-color: <%= @company.color%> !important;">
+    <p class="lead"><%= @company.phone %> — <%= @company.email %></p>
   </div>
 </div>
