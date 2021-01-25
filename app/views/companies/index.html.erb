@@ -1,15 +1,33 @@
 <div class="container py-5">
-  <h3>Companies</h3>
-  <%= link_to "+ Create a Company", new_company_path %><br>
+  <h3 class="mb-3 border-bottom pb-3">Companies</h3>
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <%= link_to "+ Create a Company", new_company_path, class: 'btn btn-primary btn-sm' %><br>
+  </div>
   <% if @companies.empty? %>
-  <p>No Companies Found</p>
+    <p>No Companies Found</p>
   <% else %>
-    <ul class="list-group my-5">
-      <% @companies.each do |company| %>
-        <a href="<%= company_path(company) %>" class="list-group-item list-group-item-action">
-          <%= company.name %>
-        </a>
-      <% end %>
-    </ul>
+    <table class='table'>
+      <thead>
+        <tr>
+          <th>Company name</th>
+          <th>Operation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @companies.each do |company| %>
+          <tr>
+            <td>
+              <a href='<%= company_path(company) %>' class='list-group-item list-group-item-action'><%= company.name %>
+              </a>
+            </td>
+            <td>
+              <%= link_to 'Show', company_path(company), class: 'btn btn-primary btn-sm' %>
+              <%= link_to 'Edit', edit_company_path(company.id), class: 'btn btn-primary btn-sm' %>
+              <%= link_to 'Delete', company_path(company), data: { confirm: delete_message('confirmation', company.name)}, method: :delete, class: 'btn btn-danger btn-sm' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   <% end %>
 </div>
